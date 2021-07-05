@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  database:
+    image: postgres:11.3-alpine
+    volumes:
+      - postgresdata:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_PORT:-15432}:5432"
+    environment:
+      - POSTGRES_PASSWORD=password
+volumes:
+  postgresdata: {}
