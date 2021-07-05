@@ -6,13 +6,14 @@ require (
 	github.com/gobuffalo/buffalo v0.15.5
 	github.com/gobuffalo/buffalo-pop/v2 v2.3.0
 	github.com/gobuffalo/envy v1.9.0
+	github.com/gobuffalo/flect v0.2.1 // indirect
 	github.com/gobuffalo/mw-contenttype v0.0.0-20190129203934-2554e742333b
 	github.com/gobuffalo/mw-forcessl v0.0.0-20180802152810-73921ae7a130
 	github.com/gobuffalo/mw-i18n v0.0.0-20190129204410-552713a3ebb4
 	github.com/gobuffalo/mw-paramlogger v0.0.0-20190129202837-395da1998525
 	github.com/gobuffalo/packr/v2 v2.8.0
-	github.com/gobuffalo/pop/v5 v5.3.0
-	github.com/gobuffalo/suite v2.8.2+incompatible
+	github.com/gobuffalo/pop/v5 v5.3.2
+	github.com/gobuffalo/suite/v3 v3.0.2
 	github.com/gobuffalo/x v0.0.0-20190224155809-6bb134105960
 	github.com/markbates/grift v1.5.0
 	github.com/rs/cors v1.8.0

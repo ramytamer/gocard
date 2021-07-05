@@ -1,0 +1,20 @@
+FROM gobuffalo/buffalo:v0.16.23
+
+ENV GO111MODULE on
+ENV GOPROXY http://proxy.golang.org
+
+RUN mkdir -p /src/work
+WORKDIR /src/work
+
+COPY go.mod go.mod
+COPY go.sum go.sum
+
+RUN go mod download
+
+ADD . .
+
+RUN buffalo build
+
+ENV ADDR=0.0.0.0
+
+CMD [ "bash", "-c", "buffalo db migrate && buffalo dev" ]
