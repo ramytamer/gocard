@@ -62,6 +62,9 @@ func App() *buffalo.App {
 		app.Use(popmw.Transaction(models.DB))
 
 		app.GET("/", HomeHandler)
+
+		app.GET("/status", HealthcheckHandler)
+
 	}
 
 	return app
