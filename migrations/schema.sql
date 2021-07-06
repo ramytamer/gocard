@@ -21,6 +21,21 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: decks; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.decks (
+    id uuid NOT NULL,
+    shuffled boolean DEFAULT false NOT NULL,
+    cards jsonb NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.decks OWNER TO postgres;
+
+--
 -- Name: schema_migration; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -30,6 +45,14 @@ CREATE TABLE public.schema_migration (
 
 
 ALTER TABLE public.schema_migration OWNER TO postgres;
+
+--
+-- Name: decks decks_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.decks
+    ADD CONSTRAINT decks_pkey PRIMARY KEY (id);
+
 
 --
 -- Name: schema_migration_version_idx; Type: INDEX; Schema: public; Owner: postgres

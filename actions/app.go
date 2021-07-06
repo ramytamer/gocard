@@ -65,6 +65,9 @@ func App() *buffalo.App {
 
 		app.GET("/status", HealthcheckHandler)
 
+		decks := DecksResource{}
+		app.POST("/decks", decks.Create)
+		app.GET("/decks/{deck_id}", decks.Show)
 	}
 
 	return app

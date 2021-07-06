@@ -1,0 +1,6 @@
+create_table("decks") {
+	t.Column("id", "uuid", {primary: true})
+  t.Column("shuffled", "bool", {"default": false})
+  t.Column("cards", "jsonb")
+	t.Timestamps()
+}
