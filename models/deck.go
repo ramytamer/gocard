@@ -41,13 +41,6 @@ func (d Decks) String() string {
 // Validate gets run every time you call a "pop.Validate*" (pop.ValidateAndSave, pop.ValidateAndCreate, pop.ValidateAndUpdate) method.
 // This method is not required and may be deleted.
 func (d *Deck) Validate(tx *pop.Connection) (*validate.Errors, error) {
-	// return validate.Validate(
-	// 	&validators.FuncValidator{
-	// 		Fn: func() bool {
-
-	// 		},
-	// 	}
-	// ), nil
 	return validate.NewErrors(), nil
 }
 
