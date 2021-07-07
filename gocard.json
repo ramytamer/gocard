@@ -1,0 +1,170 @@
+{
+  "info": {
+    "name": "gocard",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{APP_URL}}/status?unhealthy=true",
+          "query": [
+            {
+              "key": "unhealthy",
+              "value": "true",
+              "disabled": false,
+              "description": null
+            }
+          ],
+          "protocol": null,
+          "host": [
+            "{{APP_URL}}/status"
+          ],
+          "port": null,
+          "path": null
+        },
+        "description": "",
+        "header": [],
+        "body": null,
+        "auth": null
+      },
+      "protocolProfileBehavior": {
+        "followRedirects": false,
+        "followOriginalHttpMethod": false,
+        "followAuthorizationHeader": false
+      },
+      "response": []
+    },
+    {
+      "name": "Create deck",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{APP_URL}}/decks",
+          "query": null,
+          "protocol": null,
+          "host": [
+            "{{APP_URL}}/decks"
+          ],
+          "port": null,
+          "path": null
+        },
+        "description": "",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "disabled": false,
+            "description": null
+          },
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "disabled": false,
+            "description": null
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "disabled": false,
+          "raw": "{\"shuffled\":true,\"partial_cards\":\"AH,KC,QS\"}"
+        },
+        "auth": null
+      },
+      "protocolProfileBehavior": {
+        "followRedirects": false,
+        "followOriginalHttpMethod": false,
+        "followAuthorizationHeader": false
+      },
+      "response": []
+    },
+    {
+      "name": "Open Deck",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{APP_URL}}/decks/612eddf9-1000-4bb0-9582-bbcce1182120",
+          "query": null,
+          "protocol": null,
+          "host": [
+            "{{APP_URL}}/decks/612eddf9-1000-4bb0-9582-bbcce1182120"
+          ],
+          "port": null,
+          "path": null
+        },
+        "description": "",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded",
+            "disabled": false,
+            "description": null
+          },
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "disabled": false,
+            "description": null
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "disabled": false,
+          "urlencoded": []
+        },
+        "auth": null
+      },
+      "protocolProfileBehavior": {
+        "followRedirects": false,
+        "followOriginalHttpMethod": false,
+        "followAuthorizationHeader": false
+      },
+      "response": []
+    },
+    {
+      "name": "Draw Card From Deck",
+      "request": {
+        "method": "PUT",
+        "url": {
+          "raw": "{{APP_URL}}/decks/612eddf9-1000-4bb0-9582-bbcce1182120/draw",
+          "query": null,
+          "protocol": null,
+          "host": [
+            "{{APP_URL}}/decks/612eddf9-1000-4bb0-9582-bbcce1182120/draw"
+          ],
+          "port": null,
+          "path": null
+        },
+        "description": "",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "disabled": false,
+            "description": null
+          },
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "disabled": false,
+            "description": null
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "disabled": false,
+          "raw": "{\"count\":1}"
+        },
+        "auth": null
+      },
+      "protocolProfileBehavior": {
+        "followRedirects": false,
+        "followOriginalHttpMethod": false,
+        "followAuthorizationHeader": false
+      },
+      "response": []
+    }
+  ]
+}
