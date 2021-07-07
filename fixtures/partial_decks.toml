@@ -1,0 +1,26 @@
+[[scenario]]
+name = "partial_deck_normal"
+
+  [[scenario.table]]
+  name = "decks"
+
+    [[scenario.table.row]]
+    id = "<%= uuid() %>"
+    shuffled = false
+    data = '{"cards": [{"code": "AC", "suit": "0", "value": "1"}, {"code": "2C", "suit": "0", "value": "2"}]}'
+    created_at = "<%= now() %>"
+    updated_at = "<%= now() %>"
+
+[[scenario]]
+name = "partial_deck_shuffled"
+
+  [[scenario.table]]
+  name = "decks"
+
+    [[scenario.table.row]]
+    id = "<%= uuid() %>"
+    shuffled = true
+    data = '{"cards": [{"code": "AC", "suit": "0", "value": "1"}, {"code": "2C", "suit": "0", "value": "2"}]}'
+    created_at = "<%= now() %>"
+    updated_at = "<%= now() %>"
+

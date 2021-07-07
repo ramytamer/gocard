@@ -1,0 +1,26 @@
+[[scenario]]
+name = "full_deck_normal"
+
+  [[scenario.table]]
+  name = "decks"
+
+    [[scenario.table.row]]
+    id = "<%= uuid() %>"
+    shuffled = false
+    data = '{"cards": [{"code": "AC", "suit": "0", "value": "1"}, {"code": "2C", "suit": "0", "value": "2"}, {"code": "3C", "suit": "0", "value": "3"}, {"code": "4C", "suit": "0", "value": "4"}, {"code": "5C", "suit": "0", "value": "5"}, {"code": "6C", "suit": "0", "value": "6"}, {"code": "7C", "suit": "0", "value": "7"}, {"code": "8C", "suit": "0", "value": "8"}, {"code": "9C", "suit": "0", "value": "9"}, {"code": "10C", "suit": "0", "value": "10"}, {"code": "JC", "suit": "0", "value": "11"}, {"code": "QC", "suit": "0", "value": "12"}, {"code": "KC", "suit": "0", "value": "13"}, {"code": "AD", "suit": "1", "value": "1"}, {"code": "2D", "suit": "1", "value": "2"}, {"code": "3D", "suit": "1", "value": "3"}, {"code": "4D", "suit": "1", "value": "4"}, {"code": "5D", "suit": "1", "value": "5"}, {"code": "6D", "suit": "1", "value": "6"}, {"code": "7D", "suit": "1", "value": "7"}, {"code": "8D", "suit": "1", "value": "8"}, {"code": "9D", "suit": "1", "value": "9"}, {"code": "10D", "suit": "1", "value": "10"}, {"code": "JD", "suit": "1", "value": "11"}, {"code": "QD", "suit": "1", "value": "12"}, {"code": "KD", "suit": "1", "value": "13"}, {"code": "AH", "suit": "2", "value": "1"}, {"code": "2H", "suit": "2", "value": "2"}, {"code": "3H", "suit": "2", "value": "3"}, {"code": "4H", "suit": "2", "value": "4"}, {"code": "5H", "suit": "2", "value": "5"}, {"code": "6H", "suit": "2", "value": "6"}, {"code": "7H", "suit": "2", "value": "7"}, {"code": "8H", "suit": "2", "value": "8"}, {"code": "9H", "suit": "2", "value": "9"}, {"code": "10H", "suit": "2", "value": "10"}, {"code": "JH", "suit": "2", "value": "11"}, {"code": "QH", "suit": "2", "value": "12"}, {"code": "KH", "suit": "2", "value": "13"}, {"code": "AS", "suit": "3", "value": "1"}, {"code": "2S", "suit": "3", "value": "2"}, {"code": "3S", "suit": "3", "value": "3"}, {"code": "4S", "suit": "3", "value": "4"}, {"code": "5S", "suit": "3", "value": "5"}, {"code": "6S", "suit": "3", "value": "6"}, {"code": "7S", "suit": "3", "value": "7"}, {"code": "8S", "suit": "3", "value": "8"}, {"code": "9S", "suit": "3", "value": "9"}, {"code": "10S", "suit": "3", "value": "10"}, {"code": "JS", "suit": "3", "value": "11"}, {"code": "QS", "suit": "3", "value": "12"}, {"code": "KS", "suit": "3", "value": "13"}]}'
+    created_at = "<%= now() %>"
+    updated_at = "<%= now() %>"
+
+[[scenario]]
+name = "full_deck_shuffled"
+
+  [[scenario.table]]
+  name = "decks"
+
+    [[scenario.table.row]]
+    id = "<%= uuid() %>"
+    shuffled = true
+    data = '{"cards": [{"code": "AC", "suit": "0", "value": "1"}, {"code": "2C", "suit": "0", "value": "2"}, {"code": "3C", "suit": "0", "value": "3"}, {"code": "4C", "suit": "0", "value": "4"}, {"code": "5C", "suit": "0", "value": "5"}, {"code": "6C", "suit": "0", "value": "6"}, {"code": "7C", "suit": "0", "value": "7"}, {"code": "8C", "suit": "0", "value": "8"}, {"code": "9C", "suit": "0", "value": "9"}, {"code": "10C", "suit": "0", "value": "10"}, {"code": "JC", "suit": "0", "value": "11"}, {"code": "QC", "suit": "0", "value": "12"}, {"code": "KC", "suit": "0", "value": "13"}, {"code": "AD", "suit": "1", "value": "1"}, {"code": "2D", "suit": "1", "value": "2"}, {"code": "3D", "suit": "1", "value": "3"}, {"code": "4D", "suit": "1", "value": "4"}, {"code": "5D", "suit": "1", "value": "5"}, {"code": "6D", "suit": "1", "value": "6"}, {"code": "7D", "suit": "1", "value": "7"}, {"code": "8D", "suit": "1", "value": "8"}, {"code": "9D", "suit": "1", "value": "9"}, {"code": "10D", "suit": "1", "value": "10"}, {"code": "JD", "suit": "1", "value": "11"}, {"code": "QD", "suit": "1", "value": "12"}, {"code": "KD", "suit": "1", "value": "13"}, {"code": "AH", "suit": "2", "value": "1"}, {"code": "2H", "suit": "2", "value": "2"}, {"code": "3H", "suit": "2", "value": "3"}, {"code": "4H", "suit": "2", "value": "4"}, {"code": "5H", "suit": "2", "value": "5"}, {"code": "6H", "suit": "2", "value": "6"}, {"code": "7H", "suit": "2", "value": "7"}, {"code": "8H", "suit": "2", "value": "8"}, {"code": "9H", "suit": "2", "value": "9"}, {"code": "10H", "suit": "2", "value": "10"}, {"code": "JH", "suit": "2", "value": "11"}, {"code": "QH", "suit": "2", "value": "12"}, {"code": "KH", "suit": "2", "value": "13"}, {"code": "AS", "suit": "3", "value": "1"}, {"code": "2S", "suit": "3", "value": "2"}, {"code": "3S", "suit": "3", "value": "3"}, {"code": "4S", "suit": "3", "value": "4"}, {"code": "5S", "suit": "3", "value": "5"}, {"code": "6S", "suit": "3", "value": "6"}, {"code": "7S", "suit": "3", "value": "7"}, {"code": "8S", "suit": "3", "value": "8"}, {"code": "9S", "suit": "3", "value": "9"}, {"code": "10S", "suit": "3", "value": "10"}, {"code": "JS", "suit": "3", "value": "11"}, {"code": "QS", "suit": "3", "value": "12"}, {"code": "KS", "suit": "3", "value": "13"}]}'
+    created_at = "<%= now() %>"
+    updated_at = "<%= now() %>"
+
