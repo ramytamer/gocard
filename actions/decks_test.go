@@ -72,9 +72,69 @@ func (as *ActionSuite) Test_DecksResource_Show_not_found() {
 	as.Equal(http.StatusNotFound, response.Code)
 }
 
-// func (as *ActionSuite) Test_DecksResource_Create() {
-//   as.Fail("Not Implemented!")
-// }
+func (as *ActionSuite) Test_DecksResource_Create_full_deck_normal_by_default() {
+	response := as.JSON(fmt.Sprintf("/decks")).Post(
+		map[string]interface{}{},
+	)
+	var responseData map[string]interface{}
+	json.Unmarshal(response.Body.Bytes(), &responseData)
+
+	as.Equal(http.StatusCreated, response.Code)
+
+	deck := models.Deck{}
+	as.DB.First(&deck)
+
+	as.False(deck.Shuffled)
+	as.Equal(52, len(deck.Data["cards"].([]interface{})))
+}
+
+func (as *ActionSuite) Test_DecksResource_Create_full_deck_shuffled() {
+	response := as.JSON(fmt.Sprintf("/decks")).Post(
+		map[string]interface{}{"shuffled": true},
+	)
+	var responseData map[string]interface{}
+	json.Unmarshal(response.Body.Bytes(), &responseData)
+
+	as.Equal(http.StatusCreated, response.Code)
+
+	deck := models.Deck{}
+	as.DB.First(&deck)
+
+	as.True(deck.Shuffled)
+	as.Equal(52, len(deck.Data["cards"].([]interface{})))
+}
+
+func (as *ActionSuite) Test_DecksResource_Create_full_deck_if_partial_cards_invalid() {
+	response := as.JSON(fmt.Sprintf("/decks")).Post(
+		map[string]interface{}{"partial_cards": "foo,bar"},
+	)
+	var responseData map[string]interface{}
+	json.Unmarshal(response.Body.Bytes(), &responseData)
+
+	as.Equal(http.StatusCreated, response.Code)
+
+	deck := models.Deck{}
+	as.DB.First(&deck)
+
+	as.False(deck.Shuffled)
+	as.Equal(52, len(deck.Data["cards"].([]interface{})))
+}
+
+func (as *ActionSuite) Test_DecksResource_Create_partial_cards() {
+	response := as.JSON(fmt.Sprintf("/decks")).Post(
+		map[string]interface{}{"partial_cards": "AH,KC,3S", "shuffled": true},
+	)
+	var responseData map[string]interface{}
+	json.Unmarshal(response.Body.Bytes(), &responseData)
+
+	as.Equal(http.StatusCreated, response.Code)
+
+	deck := models.Deck{}
+	as.DB.First(&deck)
+
+	as.True(deck.Shuffled)
+	as.Equal(3, len(deck.Data["cards"].([]interface{})))
+}
 
 func (as *ActionSuite) Test_DecksResource_Draw_full_deck_normal() {
 	as.LoadFixture("full_deck_normal")
