@@ -76,6 +76,67 @@ func (as *ActionSuite) Test_DecksResource_Show_not_found() {
 //   as.Fail("Not Implemented!")
 // }
 
-// func (as *ActionSuite) Test_DecksResource_Update() {
-//   as.Fail("Not Implemented!")
-// }
+func (as *ActionSuite) Test_DecksResource_Draw_full_deck_normal() {
+	as.LoadFixture("full_deck_normal")
+	deck := models.Deck{}
+	as.DB.First(&deck)
+
+	response := as.JSON(fmt.Sprintf("/decks/%s/draw", deck.ID)).Put(
+		map[string]interface{}{"count": 1},
+	)
+	var responseData map[string]interface{}
+	json.Unmarshal(response.Body.Bytes(), &responseData)
+
+	as.Equal(http.StatusOK, response.Code)
+	as.Equal(1, len(responseData["cards"].([]interface{})))
+
+	deck = models.Deck{}
+	as.DB.First(&deck)
+
+	as.Equal(51, len(deck.Data["cards"].([]interface{})))
+}
+
+func (as *ActionSuite) Test_DecksResource_Draw_partial_deck_normal() {
+	as.LoadFixture("partial_deck_normal")
+	deck := models.Deck{}
+	as.DB.First(&deck)
+
+	response := as.JSON(fmt.Sprintf("/decks/%s/draw", deck.ID)).Put(
+		map[string]interface{}{"count": 2},
+	)
+	var responseData map[string]interface{}
+	json.Unmarshal(response.Body.Bytes(), &responseData)
+
+	as.Equal(http.StatusOK, response.Code)
+	as.Equal(2, len(responseData["cards"].([]interface{})))
+
+	deck = models.Deck{}
+	as.DB.First(&deck)
+
+	as.Equal(0, len(deck.Data["cards"].([]interface{})))
+}
+
+func (as *ActionSuite) Test_DecksResource_Draw_handle_errors() {
+	as.LoadFixture("partial_deck_normal")
+	deck := models.Deck{}
+	as.DB.First(&deck)
+
+	response := as.JSON(fmt.Sprintf("/decks/%s/draw", deck.ID)).Put(map[string]interface{}{"count": 0})
+	as.Equal(http.StatusUnprocessableEntity, response.Code)
+
+	response = as.JSON(fmt.Sprintf("/decks/%s/draw", deck.ID)).Put(map[string]interface{}{"count": -1})
+	as.Equal(http.StatusUnprocessableEntity, response.Code)
+
+	response = as.JSON(fmt.Sprintf("/decks/%s/draw", deck.ID)).Put(map[string]interface{}{"count": -2})
+	as.Equal(http.StatusUnprocessableEntity, response.Code)
+
+	response = as.JSON(fmt.Sprintf("/decks/%s/draw", deck.ID)).Put(map[string]interface{}{"count": 53})
+	as.Equal(http.StatusUnprocessableEntity, response.Code)
+
+	cardsCount := len(deck.Data["cards"].([]interface{}))
+	response = as.JSON(fmt.Sprintf("/decks/%s/draw", deck.ID)).Put(map[string]interface{}{"count": cardsCount + 1})
+	as.Equal(http.StatusUnprocessableEntity, response.Code)
+
+	response = as.JSON(fmt.Sprintf("/decks/%s/draw", "404")).Put(map[string]interface{}{"count": 1})
+	as.Equal(http.StatusNotFound, response.Code)
+}
