@@ -17,6 +17,7 @@ type Deck struct {
 	ID           uuid.UUID  `json:"deck_id" db:"id"`
 	Shuffled     bool       `json:"shuffled" db:"shuffled"`
 	Data         slices.Map `json:"-" db:"data"`
+	Count        int        `json:"count" db:"-"`
 	PartialCards string     `json:"partial_cards" db:"-"`
 	CreatedAt    time.Time  `json:"created_at" db:"created_at"`
 	UpdatedAt    time.Time  `json:"updated_at" db:"updated_at"`

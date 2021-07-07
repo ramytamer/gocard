@@ -68,6 +68,7 @@ func App() *buffalo.App {
 		decks := DecksResource{}
 		app.POST("/decks", decks.Create)
 		app.GET("/decks/{deck_id}", decks.Show)
+		app.PUT("/decks/{deck_id}/draw", decks.Draw)
 	}
 
 	return app

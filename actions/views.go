@@ -18,7 +18,7 @@ func renderCreateDeck(deck models.Deck) map[string]interface{} {
 func renderShowDeck(deck models.Deck) map[string]interface{} {
 	cards := deck.Data["cards"].([]interface{})
 	if deck.Shuffled {
-		cards = shuffle(cards)
+		cards = shuffleCards(cards)
 	}
 	return map[string]interface{}{
 		"deck_id":   deck.ID.String(),
@@ -28,7 +28,11 @@ func renderShowDeck(deck models.Deck) map[string]interface{} {
 	}
 }
 
-func shuffle(cards []interface{}) []interface{} {
+func renderDrawnCards(cards []interface{}) map[string]interface{} {
+	return map[string]interface{}{"cards": cards}
+}
+
+func shuffleCards(cards []interface{}) []interface{} {
 	rand.Seed(time.Now().UnixNano())
 	rand.Shuffle(len(cards), func(i, j int) { cards[i], cards[j] = cards[j], cards[i] })
 
