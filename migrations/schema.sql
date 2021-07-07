@@ -27,7 +27,7 @@ SET default_with_oids = false;
 CREATE TABLE public.decks (
     id uuid NOT NULL,
     shuffled boolean DEFAULT false NOT NULL,
-    cards jsonb NOT NULL,
+    data jsonb NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );

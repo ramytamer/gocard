@@ -1,14 +1,15 @@
 package actions
 
 import (
+	"errors"
 	"fmt"
 	"gocard/models"
-	"log"
 	"net/http"
 	"strings"
 
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/pop/v5"
+	"github.com/gobuffalo/pop/v5/slices"
 	"github.com/gobuffalo/x/responder"
 )
 
@@ -39,29 +40,21 @@ func (v DecksResource) Show(c buffalo.Context) error {
 	}
 
 	// Allocate an empty Deck
-	deck := &models.Deck{}
+	deck := &models.Deck{Data: slices.Map{}}
 
 	// To find the Deck the parameter deck_id is used.
 	if err := tx.Find(deck, c.Param("deck_id")); err != nil {
-		return c.Error(http.StatusNotFound, err)
+		return c.Error(http.StatusNotFound, errors.New(fmt.Sprintf("No Deck Found with id; (%v)", c.Param("deck_id"))))
 	}
 
-	return responder.Wants("html", func(c buffalo.Context) error {
-		c.Set("deck", deck)
-
-		return c.Render(http.StatusOK, r.HTML("/decks/show.plush.html"))
-	}).Wants("json", func(c buffalo.Context) error {
-		return c.Render(200, r.JSON(deck))
-	}).Wants("xml", func(c buffalo.Context) error {
-		return c.Render(200, r.XML(deck))
-	}).Respond(c)
+	return c.Render(200, r.JSON(renderShowDeck(*deck)))
 }
 
 // Create adds a Deck to the DB. This function is mapped to the
 // path POST /decks
 func (v DecksResource) Create(c buffalo.Context) error {
 	// Allocate an empty Deck
-	deck := &models.Deck{}
+	deck := &models.Deck{Data: slices.Map{}}
 
 	if err := c.Bind(deck); err != nil {
 		return err
@@ -157,28 +150,39 @@ func generateAndAssignFullDeck(deck *models.Deck) {
 		}
 	}
 
-	deckCards := make([]models.CardMap, 52)
+	deckCards := make([]interface{}, len(cards))
 	for i, card := range cards {
 		deckCards[i] = card.ToMap()
 	}
 
-	deck.Cards = deckCards
+	data := map[string]interface{}{"cards": deckCards}
+	m := slices.Map{}
+	m.Scan(data)
+
+	deck.Data = data
 }
 
 func convertCodesToCards(deck *models.Deck) {
-	log.Println("converting...")
 	codes := strings.Split(deck.PartialCards, ",")
 	cards := make([]models.CardMap, 0)
 	for _, code := range codes {
 		card, err := models.MakeCardFromCode(code)
-		log.Println("made", card, err)
 		if err == nil {
 			cards = append(cards, card.ToMap())
 		}
 	}
 
 	if len(cards) != 0 {
-		deck.Cards = cards
+		deckCards := make([]interface{}, len(cards))
+		for i, card := range cards {
+			deckCards[i] = card
+		}
+
+		data := map[string]interface{}{"cards": deckCards}
+		m := slices.Map{}
+		m.Scan(data)
+
+		deck.Data = data
 	} else {
 		generateAndAssignFullDeck(deck)
 	}

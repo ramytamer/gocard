@@ -2,47 +2,28 @@ package models
 
 import (
 	"encoding/json"
-	"math/rand"
-	"strconv"
 	"time"
 
 	"github.com/gobuffalo/pop/v5"
+	"github.com/gobuffalo/pop/v5/slices"
 	"github.com/gobuffalo/validate/v3"
 	"github.com/gofrs/uuid"
 )
 
-type CardMap map[string]string
+type CardMap map[string]interface{}
 
 // Deck is used by pop to map your decks database table to your go code.
 type Deck struct {
-	ID           uuid.UUID `json:"deck_id" db:"id"`
-	Shuffled     bool      `json:"shuffled" db:"shuffled"`
-	Cards        []CardMap `json:"-" db:"cards"`
-	PartialCards string    `json:"partial_cards" db:"-"`
-	CreatedAt    time.Time `json:"created_at" db:"created_at"`
-	UpdatedAt    time.Time `json:"updated_at" db:"updated_at"`
+	ID           uuid.UUID  `json:"deck_id" db:"id"`
+	Shuffled     bool       `json:"shuffled" db:"shuffled"`
+	Data         slices.Map `json:"-" db:"data"`
+	PartialCards string     `json:"partial_cards" db:"-"`
+	CreatedAt    time.Time  `json:"created_at" db:"created_at"`
+	UpdatedAt    time.Time  `json:"updated_at" db:"updated_at"`
 }
 
 // String is not required by pop and may be deleted
 func (d Deck) String() string {
-	cards := make([]CardMap, len(d.Cards))
-
-	for i, card := range d.Cards {
-		v, _ := strconv.Atoi(card["value"])
-		s, _ := strconv.Atoi(card["suite"])
-
-		c := MakeCard(v, s)
-
-		cards[i] = c.ToMap()
-	}
-
-	if d.Shuffled {
-		rand.Seed(time.Now().UnixNano())
-		rand.Shuffle(len(cards), func(i, j int) { cards[i], cards[j] = cards[j], cards[i] })
-	}
-
-	d.Cards = cards
-
 	jd, _ := json.Marshal(d)
 	return string(jd)
 }
@@ -52,8 +33,6 @@ type Decks []Deck
 
 // String is not required by pop and may be deleted
 func (d Decks) String() string {
-	// log.Println("+++++++++++++++++++++++++++++")
-	// log.Println("+++++++++++++++++++++++++++++")
 	jd, _ := json.Marshal(d)
 	return string(jd)
 }
